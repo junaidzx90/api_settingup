@@ -5,17 +5,24 @@ class Users{
     public $user_name;
     public $old_account;
     public $account_number;
+    public $active;
+    public $lictype;
+    public $productCode;
+    public $modifyTime;
     public $version;
     public $latestVersion;
 
     function __construct($db){
         $this->conn = $db;
-        $this->table_name = "users";
+        $this->table_name = "subscribers";
+        $this->active = 1;
+        $this->lictype = 'Full';
+        $this->productCode = 'EA2_FP';
     }
 
     function create(){
         // query to insert record
-        $query = "INSERT INTO {$this->table_name} SET UserName = :user_name, accountNo = :accountNo, version = :version, latestVersion = :latestVersion";
+        $query = "INSERT INTO {$this->table_name} SET UserName = :user_name, accountNo = :accountNo, version = :version, latestVersion = :latestVersion, active = :active, lictype = :lictype, productCode = :productCode, modifyTime = NOW()";
 
         // prepare query
         $request = $this->conn->prepare($query);
@@ -31,6 +38,10 @@ class Users{
         $request->bindParam(":accountNo", $this->account_number);
         $request->bindParam(":version", $this->version);
         $request->bindParam(":latestVersion", $this->latestVersion);
+        // Default value
+        $request->bindParam(":active", $this->active);
+        $request->bindParam(":lictype", $this->lictype);
+        $request->bindParam(":productCode", $this->productCode);
 
         // execute query
         if($request->execute()){
@@ -42,7 +53,7 @@ class Users{
 
     function update(){
         // query to insert record
-        $query = "UPDATE {$this->table_name} SET UserName = :user_name, accountNo = :accountNo, version = :version, latestVersion = :latestVersion WHERE accountNo = :old_account AND UserName = :user_name";
+        $query = "UPDATE {$this->table_name} SET UserName = :user_name, accountNo = :accountNo, version = :version, latestVersion = :latestVersion, active = :active, lictype = :lictype, productCode = :productCode, modifyTime = NOW() WHERE accountNo = :old_account AND UserName = :user_name";
 
         // prepare query
         $request = $this->conn->prepare($query);
@@ -60,6 +71,11 @@ class Users{
         $request->bindParam(":accountNo", $this->account_number);
         $request->bindParam(":version", $this->version);
         $request->bindParam(":latestVersion", $this->latestVersion);
+
+        // Default value
+        $request->bindParam(":active", $this->active);
+        $request->bindParam(":lictype", $this->lictype);
+        $request->bindParam(":productCode", $this->productCode);
 
         // execute query
         if($request->execute()){
