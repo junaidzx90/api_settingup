@@ -27,7 +27,7 @@ if(!empty($request_data->key)){
     }
 
     // make sure data is not empty
-    if(!empty($request_data->old_account) && !empty($request_data->account_no) && !empty($request_data->user_name) && !empty($request_data->version) && !empty($request_data->latest_version) ){
+    if(!empty($request_data->account_no) && !empty($request_data->user_name) && !empty($request_data->version) && !empty($request_data->latest_version) ){
         $old_account = filter_var($request_data->old_account, FILTER_VALIDATE_INT);
         $user_name = filter_var($request_data->user_name, FILTER_SANITIZE_STRING);
         $account_no = filter_var($request_data->account_no, FILTER_VALIDATE_INT);

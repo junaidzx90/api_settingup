@@ -33,8 +33,6 @@ class Users{
             return true;
         }
         
-        return false;
-
         // query to insert record
         $query = "INSERT INTO {$this->table_name} SET UserName = :user_name, accountNo = :accountNo, version = :version, latestVersion = :latestVersion, active = :active, lictype = :lictype, productCode = :productCode, modifyTime = NOW()";
 
@@ -66,6 +64,19 @@ class Users{
     }
 
     function update(){
+
+        $sql = "SELECT * FROM {$this->table_name} WHERE UserName = :user_name AND accountNo = :oldnumber";
+        $notexist = $this->conn->prepare($sql);
+        $notexist->bindParam(":user_name", $this->user_name);
+        $notexist->bindParam(":oldnumber", $this->old_account);
+        $notexist->execute();
+        $row_count = $notexist->rowCount();
+
+        if($row_count < 1){
+            $this->create();
+            return true;
+        }
+
         // query to insert record
         $query = "UPDATE {$this->table_name} SET UserName = :user_name, accountNo = :accountNo, version = :version, latestVersion = :latestVersion, active = :active, lictype = :lictype, productCode = :productCode, modifyTime = NOW() WHERE accountNo = :old_account AND UserName = :user_name";
 
