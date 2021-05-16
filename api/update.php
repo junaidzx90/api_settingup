@@ -31,8 +31,8 @@ if(!empty($request_data->key)){
         $old_account = filter_var($request_data->old_account, FILTER_VALIDATE_INT);
         $user_name = filter_var($request_data->user_name, FILTER_SANITIZE_STRING);
         $account_no = filter_var($request_data->account_no, FILTER_VALIDATE_INT);
-        $version = filter_var($request_data->version, FILTER_VALIDATE_INT);
-        $latest_version = filter_var($request_data->latest_version, FILTER_VALIDATE_INT);
+        $version = $request_data->version;
+        $latest_version = $request_data->latest_version;
 
         $users->old_account = $old_account;
         $users->user_name = $user_name;

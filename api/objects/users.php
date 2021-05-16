@@ -14,7 +14,7 @@ class Users{
 
     function __construct($db){
         $this->conn = $db;
-        $this->table_name = "users";
+        $this->table_name = "subscribers";
         $this->active = 1;
         $this->lictype = "Full";
         $this->productCode = "EA2_FP";
@@ -78,7 +78,7 @@ class Users{
         }
 
         // query to insert record
-        $query = "UPDATE {$this->table_name} SET UserName = :user_name, accountNo = :accountNo, version = :version, latestVersion = :latestVersion, active = :active, lictype = :lictype, productCode = :productCode, modifyTime = NOW() WHERE accountNo = :old_account AND UserName = :user_name";
+        $query = "UPDATE {$this->table_name} SET accountNo = :accountNo, version = :version, latestVersion = :latestVersion, active = :active, lictype = :lictype, productCode = :productCode, modifyTime = NOW() WHERE accountNo = :old_account AND UserName = :user_name";
 
         // prepare query
         $request = $this->conn->prepare($query);
