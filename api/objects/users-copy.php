@@ -21,20 +21,6 @@ class Users{
     }
 
     function create(){
-        $sql = "SELECT * FROM {$this->table_name} WHERE UserName = :user_name AND accountNo = :oldnumber";
-        $exist = $this->conn->prepare($sql);
-        $exist->bindParam(":user_name", $this->user_name);
-        $exist->bindParam(":oldnumber", $this->old_account);
-        $exist->execute();
-        $row_count = $exist->rowCount();
-
-        if($row_count > 0){
-            $this->update();
-            return true;
-        }
-        
-        return false;
-
         // query to insert record
         $query = "INSERT INTO {$this->table_name} SET UserName = :user_name, accountNo = :accountNo, version = :version, latestVersion = :latestVersion, active = :active, lictype = :lictype, productCode = :productCode, modifyTime = NOW()";
 

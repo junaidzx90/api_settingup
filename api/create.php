@@ -28,14 +28,16 @@ if(!empty($request_data->key)){
 
     // make sure data is not empty
     if(!empty($request_data->account_no) && !empty($request_data->user_name) && !empty($request_data->version) && !empty($request_data->latest_version) ){
-        
+
         $user_name = filter_var($request_data->user_name, FILTER_SANITIZE_STRING);
         $account_no = filter_var($request_data->account_no, FILTER_VALIDATE_INT);
+        $old_account = filter_var($request_data->old_account, FILTER_VALIDATE_INT);
         $version = filter_var($request_data->version, FILTER_VALIDATE_INT);
         $latest_version = filter_var($request_data->latest_version, FILTER_VALIDATE_INT);
 
         $users->user_name = $user_name;
         $users->account_number = $account_no;
+        $users->old_account = $old_account;
         $users->version = $version;
         $users->latestVersion = $latest_version;
 
